@@ -34,6 +34,12 @@ namespace Ical.Net
         int Line { get; set; }
 
         /// <summary>
+        /// Returns the last line number of this calendar
+        /// object found during parsing.
+        /// </summary>
+        int EndLine { get; set; }
+
+        /// <summary>
         /// Returns the column number where this calendar
         /// object was found during parsing.
         /// </summary>

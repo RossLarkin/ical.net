@@ -20,6 +20,7 @@ namespace Ical.Net.Serialization
         {
             try
             {
+#pragma warning disable SYSLIB0001  // 'UTF7Encoding.UTF7Encoding()' is obsolete: 'The UTF-7 encoding is insecure and should not be used. Consider using UTF-8 instead.'
                 var utf7 = new UTF7Encoding();
                 return utf7.GetBytes(value);
             }

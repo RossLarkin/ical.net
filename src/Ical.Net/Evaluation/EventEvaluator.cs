@@ -41,6 +41,7 @@ namespace Ical.Net.Evaluation
             foreach (var period in Periods)
             {
                 period.Duration = CalendarEvent.Duration;
+#pragma warning disable CS8073  // The result of the expression is always 'true' since a value of type 'TimeSpan' is never equal to 'null' of type 'TimeSpan?'
                 period.EndTime = period.Duration == null
                     ? period.StartTime
                     : period.StartTime.Add(CalendarEvent.Duration);
@@ -50,6 +51,7 @@ namespace Ical.Net.Evaluation
             foreach (var period in Periods.Where(p => p.EndTime == null))
             {
                 period.Duration = CalendarEvent.Duration;
+#pragma warning disable CS8073  // The result of the expression is always 'true' since a value of type 'TimeSpan' is never equal to 'null' of type 'TimeSpan?'
                 period.EndTime = period.Duration == null
                     ? period.StartTime
                     : period.StartTime.Add(CalendarEvent.Duration);

@@ -19,7 +19,11 @@ namespace Ical.Net.DataTypes
         public GeographicLocation(string value) : this()
         {
             var serializer = new GeographicLocationSerializer();
-            serializer.Deserialize(value);
+
+            //RML Added "g" to set Lat/Lon.  Before this method was a noop.
+            GeographicLocation g = serializer.Deserialize(value);
+            Latitude  = g.Latitude;
+            Longitude = g.Longitude;
         }
 
         public GeographicLocation(double latitude, double longitude)

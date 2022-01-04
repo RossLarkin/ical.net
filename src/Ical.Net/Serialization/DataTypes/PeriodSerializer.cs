@@ -92,6 +92,7 @@ namespace Ical.Net.Serialization.DataTypes
             }
 
             // Only return an object if it has been deserialized correctly.
+#pragma warning disable CS8073  // The result of the expression is always 'true' since a value of type 'TimeSpan' is never equal to 'null' of type 'TimeSpan?'
             if (p.StartTime != null && p.Duration != null)
             {
                 return p;

@@ -88,6 +88,8 @@ namespace Ical.Net.Evaluation
             foreach (var period in Periods.Where(period => period.EndTime == null))
             {
                 period.Duration = Todo.Duration;
+#pragma warning disable CS8073  // The result of the expression is always 'true' since a value of type 'TimeSpan' is never equal to 'null' of type 'TimeSpan?'
+
                 if (period.Duration != null)
                 {
                     period.EndTime = period.StartTime.Add(Todo.Duration);

@@ -45,7 +45,12 @@ namespace Ical.Net.Serialization.DataTypes
             var values = value.Split(new [] {';'}, StringSplitOptions.RemoveEmptyEntries);
             if (values.Length != 2)
             {
-                return null;
+                //RML Allow ',' delimiter used by .ics files from iCloud.
+                values = value.Split(new [] {','}, StringSplitOptions.RemoveEmptyEntries);
+                if (values.Length != 2)
+                {
+                    return null;
+                }
             }
 
             double lat;

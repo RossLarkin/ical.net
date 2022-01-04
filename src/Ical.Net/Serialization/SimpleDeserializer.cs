@@ -10,6 +10,8 @@ namespace Ical.Net.Serialization
 {
     public class SimpleDeserializer
     {
+        public static event EventHandler<ICalendarComponent> OnHaveComponent; //RML
+
         internal SimpleDeserializer(
             DataTypeMapper dataTypeMapper,
             ISerializerFactory serializerFactory,
@@ -73,6 +75,7 @@ namespace Ical.Net.Serialization
             var context = new SerializationContext();
             var stack = new Stack<ICalendarComponent>();
             var current = default(ICalendarComponent);
+            idxCurrentReaderLine = -2; // Start at "beginning" of file.  Starting at -2 provides a zero-based index.  //RML
             foreach (var contentLineString in GetContentLines(reader))
             {
                 var contentLine = ParseContentLine(context, contentLineString);
@@ -81,6 +84,7 @@ namespace Ical.Net.Serialization
                     stack.Push(current);
                     current = _componentFactory.Build((string)contentLine.Value);
                     SerializationUtil.OnDeserializing(current);
+                    current.Line = idxCurrentReaderLine; //RML
                 }
                 else
                 {
@@ -104,6 +108,8 @@ namespace Ical.Net.Serialization
                         else
                         {
                             current.Children.Add(finished);
+                            finished.EndLine = idxCurrentReaderLine;
+                            OnHaveComponent?.Invoke( null, finished ); //RML
                         }
                     }
                     else
@@ -178,12 +184,15 @@ namespace Ical.Net.Serialization
             }
         }
 
+
+        private static int idxCurrentReaderLine;  //RML
         private static IEnumerable<string> GetContentLines(TextReader reader)
         {
             var currentLine = new StringBuilder();
             while (true)
             {
                 var nextLine = reader.ReadLine();
+                idxCurrentReaderLine++;  //RML
                 if (nextLine == null)
                 {
                     break;

@@ -117,6 +117,7 @@ namespace Ical.Net
         }
 
         public virtual int Line { get; set; }
+        public virtual int EndLine { get; set; }
 
         public virtual int Column { get; set; }
 

@@ -7,6 +7,7 @@ using Ical.Net.Evaluation;
 
 namespace Ical.Net
 {
+    #pragma warning disable CS0659  // 'VTimeZoneInfo' overrides Object.Equals(object o) but does not override Object.GetHashCode()
     public class VTimeZoneInfo : CalendarComponent, IRecurrable
     {
         TimeZoneInfoEvaluator _evaluator;
